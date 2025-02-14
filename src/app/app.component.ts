@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,6 +31,7 @@ export class AppComponent {
   showPoem: boolean = false;
   showNoButton: boolean = true;
   displayedLines: string[] = [];
+  noButtonClickCount = 0; // Track how many times "No" button is clicked
 
   poemLines: string[] = [
     "i'll be everything you need me to be.",
@@ -46,8 +47,10 @@ export class AppComponent {
     "i'll be everything you need me to be."
   ];
 
+  constructor(private renderer: Renderer2) {}
+
   showLove() {
-    this.loveMessage = "I Knew It😍, I Love You too ချစ်တုံးချေ😙💞";
+    this.loveMessage = "I Knew I😍t, I Love You too ချစ်တုံးချေ😙💞";
     this.showLoveMessage = true;
     this.showNoButton = false;
 
@@ -61,23 +64,40 @@ export class AppComponent {
     this.poemLines.forEach((line, index) => {
       setTimeout(() => {
         this.displayedLines.push(line);
-      }, index * 1500);
+      }, index * 2000);
     });
   }
 
-  // Function to move the "No" button randomly
-  moveNoButton() {
-    const noButton = document.getElementById("noBtn");
-
-    if (noButton) {
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-      const newX = Math.random() * (screenWidth - 100); // Keep within screen width
-      const newY = Math.random() * (screenHeight - 100); // Keep within screen height
-
-      noButton.style.position = "absolute";
-      noButton.style.left = `${newX}px`;
-      noButton.style.top = `${newY}px`;
+  moveNoButton(event: Event) {
+    const noButton = event.target as HTMLElement;
+    if (this.noButtonClickCount === 0) {
+      this.randomMove(noButton);
     }
   }
+
+  clickNoButton(event: Event) {
+    const noButton = event.target as HTMLElement;
+
+    if (this.noButtonClickCount === 0) {
+      this.renderer.addClass(noButton, 'cracked'); // First click → Crack
+      this.noButtonClickCount++;
+    } else if (this.noButtonClickCount === 1) {
+      this.renderer.addClass(noButton, 'shattered'); // Second click → Shatter
+      setTimeout(() => {
+        this.showNoButton = false; // Remove button after shattering
+      }, 500);
+    }
+  }
+
+  randomMove(button: HTMLElement) {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const newX = Math.random() * (screenWidth - 100);
+    const newY = Math.random() * (screenHeight - 200);
+
+    button.style.position = "absolute";
+    button.style.left = `${newX}px`;
+    button.style.top = `${newY}px`;
+  }
+
 }

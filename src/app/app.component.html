@@ -1,16 +1,15 @@
-<!-- <div class="container">
-  <h1>Do You Love Me? 💖</h1>
-  <button class="yes-btn" (click)="showLove()">Yes</button>
-  <button class="no-btn" #noBtn (mouseenter)="moveButton(noBtn)" (click)="moveButton(noBtn)">No</button>
-  <p *ngIf="loveMessage" class="message">{{ loveMessage }}</p>
-</div> -->
-
 <div class="container">
   <h1>Do You Love Me? 💖</h1>
 
   <div class="button-container">
     <button class="yes-btn" (click)="showLove()">Yes</button>
-    <button id="noBtn" class="no-btn" *ngIf="showNoButton" (mouseenter)="moveNoButton()">No</button>
+    <button id="noBtn" class="no-btn"
+            *ngIf="showNoButton"
+            (mouseenter)="moveNoButton($event)"
+            (touchstart)="moveNoButton($event)"
+            (click)="clickNoButton($event)">
+      No
+    </button>
   </div>
 
   <p *ngIf="showLoveMessage" class="message">{{ loveMessage }}</p>
@@ -19,4 +18,3 @@
     <p *ngFor="let line of displayedLines" class="line">{{ line }}</p>
   </div>
 </div>
-

@@ -11,7 +11,7 @@ body {
   margin: auto;
 }
 
-/* Center the buttons properly */
+/* Center buttons */
 .button-container {
   display: flex;
   justify-content: center;
@@ -43,6 +43,21 @@ button {
   background-color: #ccc;
   color: black;
   position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Cracked effect */
+.cracked {
+  transform: rotate(-10deg);
+  background-color: #d32f2f; /* Darker red */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Shattered effect */
+.shattered {
+  transform: scale(0.1) rotate(360deg);
+  opacity: 0;
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 
 .message {
