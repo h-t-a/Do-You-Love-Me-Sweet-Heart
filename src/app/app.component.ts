@@ -15,6 +15,8 @@ export class AppComponent {
   showMemories: boolean = false;
   displayedLines: string[] = [];
   noButtonClickCount = 0;
+  showBeforeGif: boolean = true;
+  showAfterGifs: boolean = false;
 
   poemLines: string[] = [
     "i'll be everything you need me to be.",
@@ -31,9 +33,9 @@ export class AppComponent {
   ];
 
   memoryImages = [
-    "../assets/memory1.jpg",
-    "../assets/memory2.jpg",
-    "../assets/memory3.jpg"
+    "assets/dudu-bubu.gif",
+    "assets/dudu-kissing-bubu-hearts.gif",
+    "assets/love-bubu-dudu.gif"
   ];
 
   @ViewChild('container') containerRef!: ElementRef;
@@ -44,6 +46,8 @@ export class AppComponent {
     this.loveMessage = "I Knew I😍t, I Love You too ချစ်တုံးချေ😙💞";
     this.showLoveMessage = true;
     this.showNoButton = false;
+    this.showBeforeGif = false; // Hide the initial gif
+    this.showAfterGifs = true; // Show the love gifs
     this.scrollToBottom();
 
     setTimeout(() => {

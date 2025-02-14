@@ -1,6 +1,6 @@
 <div #container class="container">
-  <!-- Cute DuDu BuBu GIF -->
-  <img src="assets/dudu-bubu.gif" alt="Cute DuDu BuBu" class="cute-gif">
+  <!-- Show Before "No" Button GIF -->
+  <img *ngIf="showBeforeGif" src="../assets/bubu-dudu-sseeyall (1).gif" alt="Bubu Dudu See Y'all" class="before-gif">
 
   <h1>Do You Love Me? 💖</h1>
 
@@ -21,9 +21,8 @@
     <p *ngFor="let line of displayedLines" class="line">{{ line }}</p>
   </div>
 
-  <!-- Our Memories Gallery -->
-  <div *ngIf="showMemories" class="memory-gallery">
-    <h2>Our Memories 🥰</h2>
+  <!-- Show After "Yes" Button GIFs -->
+  <div *ngIf="showAfterGifs" class="after-gifs">
     <img *ngFor="let img of memoryImages" [src]="img" class="memory-img">
   </div>
 </div>
