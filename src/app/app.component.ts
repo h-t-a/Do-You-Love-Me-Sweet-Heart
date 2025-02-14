@@ -29,6 +29,9 @@ export class AppComponent {
   loveMessage: string = "";
   showLoveMessage: boolean = false;
   showPoem: boolean = false;
+  showNoButton: boolean = true;
+  displayedLines: string[] = [];
+
   poemLines: string[] = [
     "i'll be everything you need me to be.",
     "i'll be your shoulder to cry on.",
@@ -42,11 +45,9 @@ export class AppComponent {
     "i'll be the walls you need to keep the building stable.",
     "i'll be everything you need me to be."
   ];
-  displayedLines: string[] = [];
-  showNoButton: boolean = true;
 
   showLove() {
-    this.loveMessage = "I Knew I😍t, I Love You too ချစ်တုံးချေ😙💞";
+    this.loveMessage = "I Knew It😍, I Love You too ချစ်တုံးချေ😙💞";
     this.showLoveMessage = true;
     this.showNoButton = false;
 
@@ -60,7 +61,23 @@ export class AppComponent {
     this.poemLines.forEach((line, index) => {
       setTimeout(() => {
         this.displayedLines.push(line);
-      }, index * 2000); // Show each line every 2 seconds
+      }, index * 1500);
     });
+  }
+
+  // Function to move the "No" button randomly
+  moveNoButton() {
+    const noButton = document.getElementById("noBtn");
+
+    if (noButton) {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      const newX = Math.random() * (screenWidth - 100); // Keep within screen width
+      const newY = Math.random() * (screenHeight - 100); // Keep within screen height
+
+      noButton.style.position = "absolute";
+      noButton.style.left = `${newX}px`;
+      noButton.style.top = `${newY}px`;
+    }
   }
 }
