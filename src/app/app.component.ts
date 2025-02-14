@@ -12,11 +12,14 @@ export class AppComponent {
   showLoveMessage: boolean = false;
   showPoem: boolean = false;
   showNoButton: boolean = true;
+  showYesButton: boolean = true;
   showMemories: boolean = false;
   displayedLines: string[] = [];
   noButtonClickCount = 0;
-  showBeforeGif: boolean = true;
-  showAfterGifs: boolean = false;
+  showInitialGif: boolean = true;
+  showLoveGif: boolean = false;
+  currentMemoryIndex: number = 0;
+  currentMemoryImage: string = "";
 
   poemLines: string[] = [
     "i'll be everything you need me to be.",
@@ -32,23 +35,19 @@ export class AppComponent {
     "i'll be everything you need me to be."
   ];
 
-  memoryImages = [
-    "assets/dudu-bubu.gif",
-    "assets/dudu-kissing-bubu-hearts.gif",
-    "assets/love-bubu-dudu.gif"
-  ];
+  memoryImages = Array.from({ length: 15 }, (_, i) => `assets/${(i + 1).toString().padStart(2, '0')}.jpg`);
 
   @ViewChild('container') containerRef!: ElementRef;
 
   constructor(private renderer: Renderer2) {}
 
   showLove() {
-    this.loveMessage = "I Knew I😍t, I Love You too ချစ်တုံးချေ😙💞";
+    this.loveMessage = "I Knew I😍, \n I Love You too ချစ်တုံးချေ😙💞";
     this.showLoveMessage = true;
     this.showNoButton = false;
-    this.showBeforeGif = false; // Hide the initial gif
-    this.showAfterGifs = true; // Show the love gifs
-    this.scrollToBottom();
+    this.showYesButton = false;
+    this.showInitialGif = false;
+    this.showLoveGif = true;
 
     setTimeout(() => {
       this.showPoem = true;
@@ -65,10 +64,27 @@ export class AppComponent {
     });
 
     setTimeout(() => {
-      this.showMemories = true; // Show memory images after poem
-      this.scrollToBottom();
+      this.showMemories = true;
+      this.displayNextMemoryImage();
     }, this.poemLines.length * 2000);
   }
+
+  displayNextMemoryImage() {
+    if (this.currentMemoryIndex === 0) {
+      // Shuffle the memory images randomly at the start
+      this.memoryImages = this.memoryImages.sort(() => Math.random() - 0.5);
+    }
+  
+    if (this.currentMemoryIndex < this.memoryImages.length) {
+      this.currentMemoryImage = this.memoryImages[this.currentMemoryIndex];
+      this.currentMemoryIndex++;
+    } else {
+      // Restart from the beginning to create a looping effect
+      this.currentMemoryIndex = 0;
+    }
+  
+    setTimeout(() => this.displayNextMemoryImage(), 2000);
+  }  
 
   moveNoButton(event: Event) {
     const noButton = event.target as HTMLElement;

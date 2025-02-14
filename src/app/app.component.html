@@ -1,11 +1,11 @@
 <div #container class="container">
-  <!-- Show Before "No" Button GIF -->
-  <img *ngIf="showBeforeGif" src="../assets/bubu-dudu-sseeyall (1).gif" alt="Bubu Dudu See Y'all" class="before-gif">
+  <!-- Show Before "Yes" Button GIF -->
+  <img *ngIf="showInitialGif" src="assets/bubu-dudu-sseeyall (1).gif" alt="See you GIF" class="before-gif">
 
   <h1>Do You Love Me? 💖</h1>
 
   <div class="button-container">
-    <button class="yes-btn" (click)="showLove()">Yes</button>
+    <button *ngIf="showYesButton" class="yes-btn" (click)="showLove()">Yes</button>
     <button id="noBtn" class="no-btn"
             *ngIf="showNoButton"
             (mouseenter)="moveNoButton($event)"
@@ -17,12 +17,15 @@
 
   <p *ngIf="showLoveMessage" class="message">{{ loveMessage }}</p>
 
+  <!-- Show After "Yes" Button GIF in previous GIF's place -->
+  <img *ngIf="showLoveGif" src="assets/love-bubu-dudu.gif" alt="Love GIF" class="love-gif">
+
   <div *ngIf="showPoem" id="poemContainer">
     <p *ngFor="let line of displayedLines" class="line">{{ line }}</p>
   </div>
 
-  <!-- Show After "Yes" Button GIFs -->
-  <div *ngIf="showAfterGifs" class="after-gifs">
-    <img *ngFor="let img of memoryImages" [src]="img" class="memory-img">
+  <!-- Memory Images (Displayed One by One) -->
+  <div *ngIf="showMemories" class="memory-section">
+    <img [src]="currentMemoryImage" class="memory-img">
   </div>
 </div>
