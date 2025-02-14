@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -31,10 +31,12 @@ export class AppComponent {
   ];
 
   memoryImages = [
-    "assets/memory1.jpg",
-    "assets/memory2.jpg",
-    "assets/memory3.jpg"
+    "../assets/memory1.jpg",
+    "../assets/memory2.jpg",
+    "../assets/memory3.jpg"
   ];
+
+  @ViewChild('container') containerRef!: ElementRef;
 
   constructor(private renderer: Renderer2) {}
 
@@ -42,6 +44,7 @@ export class AppComponent {
     this.loveMessage = "I Knew I😍t, I Love You too ချစ်တုံးချေ😙💞";
     this.showLoveMessage = true;
     this.showNoButton = false;
+    this.scrollToBottom();
 
     setTimeout(() => {
       this.showPoem = true;
@@ -53,11 +56,13 @@ export class AppComponent {
     this.poemLines.forEach((line, index) => {
       setTimeout(() => {
         this.displayedLines.push(line);
+        this.scrollToBottom();
       }, index * 2000);
     });
 
     setTimeout(() => {
-      this.showMemories = true; 
+      this.showMemories = true; // Show memory images after poem
+      this.scrollToBottom();
     }, this.poemLines.length * 2000);
   }
 
@@ -91,6 +96,17 @@ export class AppComponent {
     button.style.position = "absolute";
     button.style.left = `${newX}px`;
     button.style.top = `${newY}px`;
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      if (this.containerRef) {
+        this.containerRef.nativeElement.scrollTo({
+          top: this.containerRef.nativeElement.scrollHeight,
+          behavior: "smooth"
+        });
+      }
+    }, 300);
   }
 
 }
