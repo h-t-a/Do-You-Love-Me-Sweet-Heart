@@ -1,24 +1,31 @@
 <div #container class="container">
   <!-- Show Before "Yes" Button GIF -->
   <img *ngIf="showInitialGif" src="assets/bubu-dudu-sseeyall (1).gif" alt="See you GIF" class="before-gif">
+  <!-- Show After "Yes" Button GIF in previous GIF's place -->
+  <img *ngIf="showLoveGif" src="assets/love-bubu-dudu.gif" alt="Love GIF" class="love-gif">
 
-  <h1>Do You Love Me? 💖</h1>
+  <h1 *ngIf="showHeading">Do You Love Me? 💖</h1>
+
 
   <div class="button-container">
     <button *ngIf="showYesButton" class="yes-btn" (click)="showLove()">Yes</button>
-    <button id="noBtn" class="no-btn"
-            *ngIf="showNoButton"
-            (mouseenter)="moveNoButton($event)"
-            (touchstart)="moveNoButton($event)"
-            (click)="clickNoButton($event)">
+    <button id="noBtn" class="no-btn" *ngIf="showNoButton" (mouseenter)="moveNoButton($event)"
+      (touchstart)="moveNoButton($event)" (click)="clickNoButton($event)">
       No
     </button>
   </div>
 
   <p *ngIf="showLoveMessage" class="message">{{ loveMessage }}</p>
 
-  <!-- Show After "Yes" Button GIF in previous GIF's place -->
-  <img *ngIf="showLoveGif" src="assets/love-bubu-dudu.gif" alt="Love GIF" class="love-gif">
+  <!-- Poem Modal -->
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" (click)="closeModal()">×</span>
+      <h2>Happy Valentine's Day, Bae 😙</h2>
+      <pre>{{ poem }}</pre>
+    </div>
+  </div>
+
 
   <div *ngIf="showPoem" id="poemContainer">
     <p *ngFor="let line of displayedLines" class="line">{{ line }}</p>
@@ -26,6 +33,6 @@
 
   <!-- Memory Images (Displayed One by One) -->
   <div *ngIf="showMemories" class="memory-section">
-    <img [src]="currentMemoryImage" class="memory-img">
+    <img [src]="currentMemoryImage" class="memory-img" [ngClass]="{'fade-in': showMemories}">
   </div>
 </div>
