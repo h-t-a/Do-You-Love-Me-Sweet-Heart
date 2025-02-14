@@ -1,4 +1,7 @@
 <div class="container">
+  <!-- Cute DuDu BuBu GIF -->
+  <img src="../assets/dudu-bubu.gif" alt="Cute DuDu BuBu" class="cute-gif">
+
   <h1>Do You Love Me? 💖</h1>
 
   <div class="button-container">
@@ -16,5 +19,11 @@
 
   <div *ngIf="showPoem" id="poemContainer">
     <p *ngFor="let line of displayedLines" class="line">{{ line }}</p>
+  </div>
+
+  <!-- Our Memories Gallery -->
+  <div *ngIf="showMemories" class="memory-gallery">
+    <h2>Our Memories 🥰</h2>
+    <img *ngFor="let img of memoryImages" [src]="img" class="memory-img">
   </div>
 </div>
