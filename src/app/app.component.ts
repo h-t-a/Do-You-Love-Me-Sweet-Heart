@@ -153,13 +153,15 @@ export class AppComponent {
   }
 
   scrollToBottom() {
-    setTimeout(() => {
-      if (this.containerRef) {
-        this.containerRef.nativeElement.scrollTo({
-          top: this.containerRef.nativeElement.scrollHeight,
-          behavior: 'smooth',
-        });
-      }
-    }, 300);
-  }
+  setTimeout(() => {
+    const container = this.containerRef?.nativeElement;
+    if (container) {
+      container.scroll({
+        top: container.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, 300); // Adjust the timeout as needed for smoother scrolling
+}
+
 }
